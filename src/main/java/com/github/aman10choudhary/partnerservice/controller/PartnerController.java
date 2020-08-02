@@ -1,0 +1,83 @@
+package com.github.aman10choudhary.partnerservice.controller;
+
+import com.github.aman10choudhary.partnerservice.service.PartnerService;
+import com.github.aman10choudhary.partnerservice.service.dto.request.PartnersRequest;
+import com.github.aman10choudhary.partnerservice.service.dto.response.Partner;
+import io.swagger.annotations.Api;
+import org.hibernate.validator.constraints.Range;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+
+import java.util.List;
+import java.util.Optional;
+
+import static com.github.aman10choudhary.partnerservice.utilities.ApplicationConstants.Errors.INVALID_FROM;
+import static com.github.aman10choudhary.partnerservice.utilities.ApplicationConstants.Errors.INVALID_SIZE;
+
+@RestController
+@Validated
+@RequestMapping(path = "/api/partners" , produces = MediaType.APPLICATION_JSON_VALUE)
+@Api(description = "Set of endpoints for Creating, Retrieving, Updating and Deleting of Partners.")
+public class PartnerController {
+
+    @Autowired
+    PartnerService partnerService;
+
+    @GetMapping()
+    public ResponseEntity<List<Partner>> getPartners(@RequestParam(defaultValue = "0") @Min(value = 0, message = INVALID_FROM)Integer from,
+                                                     @RequestParam(defaultValue = "10") @Min(value = 0, message = INVALID_SIZE) Integer size){
+        if(from % size != 0){
+            /*TODO: handle exception properly*/
+            throw new RuntimeException();
+        }
+        return ResponseEntity.ok(
+                partnerService.getPartners(
+                        PartnersRequest.builder()
+                                .from(from)
+                                .size(size)
+                                .build()
+                ));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Partner> getPartnerById(@PathVariable Long id){
+        return ResponseEntity.ok(
+                partnerService.getPartners(
+                        PartnersRequest.builder()
+                                .id(id)
+                                .build()
+                ).get(0)
+        );
+    }
+
+    @PostMapping
+    public ResponseEntity<Partner> createPartner(@Valid @RequestBody Partner partner){
+        partnerService.createPartner(partner);
+        return ResponseEntity.status(HttpStatus.CREATED).body(partner);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Partner> update(@PathVariable Long id,
+            @Valid @RequestBody Partner partner){
+        partner.setId(id);
+        partnerService.updatePartner(partner);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletePartnerById(@PathVariable Long id){
+        partnerService.deletePartner(
+                PartnersRequest.builder()
+                        .id(id)
+                        .build()
+        );
+        return ResponseEntity.ok().build();
+    }
+}
