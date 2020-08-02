@@ -2,7 +2,8 @@
 A small Springboot application to perform CRUD operations on Partner Entity
 
 [![Build Status](https://travis-ci.org/aman10choudhary/partner-service.svg?branch=master)](https://travis-ci.org/aman10choudhary/partner-service)
-
+[![Maintainability](https://api.codeclimate.com/v1/badges/bb01596e90a621268916/maintainability)](https://codeclimate.com/github/aman10choudhary/partner-service/maintainability)
+[![BCH compliance](https://bettercodehub.com/edge/badge/aman10choudhary/partner-service?branch=master)](https://bettercodehub.com/)
 
 ## Inspirations
 * Event Driven Architecture
