@@ -1,6 +1,9 @@
 # Partner Service
 A small Springboot application to perform CRUD operations on Partner Entity
 
+[![Build Status](https://travis-ci.org/aman10choudhary/partner-service.svg?branch=master)](https://travis-ci.org/aman10choudhary/partner-service)
+
+
 ## Inspirations
 * Event Driven Architecture
 * Microservice Architecture
