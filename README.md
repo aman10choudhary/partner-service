@@ -6,3 +6,4 @@ A small Springboot application to perform CRUD operations on Partner Entity
 * Microservice Architecture
 * Reactive Architecture
 * SOLID Design Principle
+
