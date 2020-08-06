@@ -1,7 +1,7 @@
 package com.github.aman10choudhary.partnerservice.service.impl;
 
 import com.github.aman10choudhary.partnerservice.dao.PartnerDao;
-import com.github.aman10choudhary.partnerservice.dao.dto.request.PartnerEntity;
+import com.github.aman10choudhary.partnerservice.dao.dto.response.PartnerEntity;
 import com.github.aman10choudhary.partnerservice.service.PartnerService;
 import com.github.aman10choudhary.partnerservice.service.dto.request.PartnersRequest;
 import com.github.aman10choudhary.partnerservice.service.dto.response.Partner;

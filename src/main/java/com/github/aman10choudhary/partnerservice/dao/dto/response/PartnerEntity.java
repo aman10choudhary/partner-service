@@ -1,4 +1,4 @@
-package com.github.aman10choudhary.partnerservice.dao.dto.request;
+package com.github.aman10choudhary.partnerservice.dao.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

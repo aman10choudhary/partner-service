@@ -4,6 +4,7 @@ import com.github.aman10choudhary.partnerservice.service.PartnerService;
 import com.github.aman10choudhary.partnerservice.service.dto.request.PartnersRequest;
 import com.github.aman10choudhary.partnerservice.service.dto.response.Partner;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,8 +32,8 @@ public class PartnerController {
     PartnerService partnerService;
 
     @GetMapping()
-    public ResponseEntity<List<Partner>> getPartners(@RequestParam(defaultValue = "0") @Min(value = 0, message = INVALID_FROM)Integer from,
-                                                     @RequestParam(defaultValue = "10") @Min(value = 0, message = INVALID_SIZE) Integer size){
+    public ResponseEntity<List<Partner>> getPartners(@RequestParam(defaultValue = "0", required = false) @Min(value = 0, message = INVALID_FROM)Integer from,
+                                                     @RequestParam(defaultValue = "10", required = false) @Min(value = 0, message = INVALID_SIZE) Integer size){
         if(from % size != 0){
             /*TODO: handle exception properly*/
             throw new RuntimeException();
@@ -47,7 +48,7 @@ public class PartnerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Partner> getPartnerById(@PathVariable Long id){
+    public ResponseEntity<Partner> getPartnerById(@ApiParam(name = "id", example = "id") @PathVariable Long id){
         return ResponseEntity.ok(
                 partnerService.getPartners(
                         PartnersRequest.builder()
@@ -64,7 +65,7 @@ public class PartnerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Partner> update(@PathVariable Long id,
+    public ResponseEntity<Partner> update(@ApiParam(name = "id", example = "id") @PathVariable Long id,
             @Valid @RequestBody Partner partner){
         partner.setId(id);
         partnerService.updatePartner(partner);
@@ -72,7 +73,7 @@ public class PartnerController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletePartnerById(@PathVariable Long id){
+    public ResponseEntity<?> deletePartnerById(@ApiParam(name = "id", example = "id") @PathVariable Long id){
         partnerService.deletePartner(
                 PartnersRequest.builder()
                         .id(id)

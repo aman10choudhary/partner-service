@@ -2,7 +2,7 @@ package com.github.aman10choudhary.partnerservice.service.dto.response;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.github.aman10choudhary.partnerservice.dao.dto.request.PartnerEntity;
+import com.github.aman10choudhary.partnerservice.dao.dto.response.PartnerEntity;
 import com.github.aman10choudhary.partnerservice.serializers.DateTimeDeSerializer;
 import com.github.aman10choudhary.partnerservice.serializers.DateTimeSerializer;
 import io.swagger.annotations.ApiModelProperty;
