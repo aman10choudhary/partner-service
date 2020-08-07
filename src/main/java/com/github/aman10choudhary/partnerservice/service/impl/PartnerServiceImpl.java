@@ -2,6 +2,7 @@ package com.github.aman10choudhary.partnerservice.service.impl;
 
 import com.github.aman10choudhary.partnerservice.dao.PartnerDao;
 import com.github.aman10choudhary.partnerservice.dao.dto.response.PartnerEntity;
+import com.github.aman10choudhary.partnerservice.exceptions.PartnerNotFoundException;
 import com.github.aman10choudhary.partnerservice.service.PartnerService;
 import com.github.aman10choudhary.partnerservice.service.dto.request.PartnersRequest;
 import com.github.aman10choudhary.partnerservice.service.dto.response.Partner;
@@ -12,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.github.aman10choudhary.partnerservice.utilities.ApplicationConstants.Errors.PARTNER_NOT_FOUND;
 
 @Service
 public class PartnerServiceImpl implements PartnerService {
@@ -37,8 +40,7 @@ public class PartnerServiceImpl implements PartnerService {
             );
             return partners;
         } else {
-            /*TODO: throw proper erros*/
-            throw new RuntimeException();
+            throw new PartnerNotFoundException(PARTNER_NOT_FOUND);
         }
 
     }

@@ -78,6 +78,14 @@ public class ExceptionMapper {
         return ResponseEntity.badRequest().body(error);
     }
 
+    @ExceptionHandler({PartnerNotFoundException.class})
+    public ResponseEntity<?> handleException(PartnerNotFoundException exception){
+        ErrorResponse error = new ErrorResponse();
+        error.setCode(HttpStatus.NOT_FOUND.value());
+        error.setMessage(exception.getMessage());
+        return ResponseEntity.status(error.getCode()).body(error);
+    }
+
     @ExceptionHandler({HttpMessageNotReadableException.class})
     public ResponseEntity<?> handleException(HttpMessageNotReadableException exception){
         ErrorResponse error = new ErrorResponse();

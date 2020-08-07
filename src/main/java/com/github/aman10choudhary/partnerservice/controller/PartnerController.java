@@ -1,11 +1,11 @@
 package com.github.aman10choudhary.partnerservice.controller;
 
+import com.github.aman10choudhary.partnerservice.exceptions.BadRequestException;
 import com.github.aman10choudhary.partnerservice.service.PartnerService;
 import com.github.aman10choudhary.partnerservice.service.dto.request.PartnersRequest;
 import com.github.aman10choudhary.partnerservice.service.dto.response.Partner;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
-import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,10 +17,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 
 import java.util.List;
-import java.util.Optional;
 
-import static com.github.aman10choudhary.partnerservice.utilities.ApplicationConstants.Errors.INVALID_FROM;
-import static com.github.aman10choudhary.partnerservice.utilities.ApplicationConstants.Errors.INVALID_SIZE;
+import static com.github.aman10choudhary.partnerservice.utilities.ApplicationConstants.Errors.*;
 
 @RestController
 @Validated
@@ -35,8 +33,7 @@ public class PartnerController {
     public ResponseEntity<List<Partner>> getPartners(@RequestParam(defaultValue = "0", required = false) @Min(value = 0, message = INVALID_FROM)Integer from,
                                                      @RequestParam(defaultValue = "10", required = false) @Min(value = 0, message = INVALID_SIZE) Integer size){
         if(from % size != 0){
-            /*TODO: handle exception properly*/
-            throw new RuntimeException();
+            throw new BadRequestException(INVALID_FROM_SIZE_COMBINATION);
         }
         return ResponseEntity.ok(
                 partnerService.getPartners(
