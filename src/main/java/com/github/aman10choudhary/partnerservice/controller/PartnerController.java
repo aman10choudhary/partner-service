@@ -66,7 +66,7 @@ public class PartnerController {
             @Valid @RequestBody Partner partner){
         partner.setId(id);
         partnerService.updatePartner(partner);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(partner);
     }
 
     @DeleteMapping("/{id}")

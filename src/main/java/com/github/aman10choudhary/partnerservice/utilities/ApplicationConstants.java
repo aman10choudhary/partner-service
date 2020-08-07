@@ -11,6 +11,6 @@ public class ApplicationConstants {
         public static final String INVALID_DATE_FORMAT = "Date format invalid , please use yyyy-MM-dd'T'HH:mm:ssXXX format.";
         public static final String INTERNAL_SERVER_ERROR = "Ohhh shit!! Something went wrong";
         public static final String PARTNER_NOT_FOUND = "Partner with provided id Not Found";
-        public static final String INVALID_FROM_SIZE_COMBINATION = "From should be either 0 or a multiple of size.";
+        public static final String INVALID_FROM_SIZE_COMBINATION = "'from' should be either 0 or a multiple of 'size'.";
     }
 }

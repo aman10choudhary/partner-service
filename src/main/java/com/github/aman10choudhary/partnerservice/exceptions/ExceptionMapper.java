@@ -90,7 +90,13 @@ public class ExceptionMapper {
     public ResponseEntity<?> handleException(HttpMessageNotReadableException exception){
         ErrorResponse error = new ErrorResponse();
         error.setCode(HttpStatus.BAD_REQUEST.value());
-        error.setMessage(exception.getCause().getCause().getMessage());
+        error.setMessage(getMessage(exception));
         return ResponseEntity.badRequest().body(error);
+    }
+
+    private String getMessage(HttpMessageNotReadableException exception) {
+        return exception.getCause() != null ?
+                (exception.getCause().getCause() != null ? exception.getCause().getCause().getMessage() : exception.getCause().getMessage()) :
+                exception.getMessage();
     }
 }

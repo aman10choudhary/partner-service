@@ -58,9 +58,14 @@ public class PartnerServiceImpl implements PartnerService {
     @Override
     @Transactional
     public void deletePartner(PartnersRequest request) {
+        checkPartnerExistence(request.getId());
         PartnerEntity partnerEntity = new PartnerEntity();
         partnerEntity.setId(request.getId());
         partnerDao.delete(partnerEntity);
+    }
+
+    private void checkPartnerExistence(Long id) {
+        getPartners(id);
     }
 
     @Override
@@ -88,6 +93,7 @@ public class PartnerServiceImpl implements PartnerService {
     @Override
     @Transactional
     public void updatePartner(Partner partner) {
+        checkPartnerExistence(partner.getId());
         PartnerEntity partnerEntity = new PartnerEntity();
         partnerEntity.setId(partner.getId());
         partnerEntity.setCompanyName(partner.getName());
