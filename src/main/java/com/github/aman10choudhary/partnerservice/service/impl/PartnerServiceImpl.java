@@ -64,10 +64,6 @@ public class PartnerServiceImpl implements PartnerService {
         partnerDao.delete(partnerEntity);
     }
 
-    private void checkPartnerExistence(Long id) {
-        getPartners(id);
-    }
-
     @Override
     @Transactional
     public void createPartner(Partner partner) {
@@ -102,5 +98,9 @@ public class PartnerServiceImpl implements PartnerService {
         String[] lc = getLc(partner.getLocale());
         partnerEntity.setLocale(new Locale(lc[0], lc[1]));
         partnerDao.save(partnerEntity);
+    }
+
+    private void checkPartnerExistence(Long id) {
+        getPartners(id);
     }
 }

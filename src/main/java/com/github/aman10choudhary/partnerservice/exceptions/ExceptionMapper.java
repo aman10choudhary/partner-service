@@ -26,29 +26,18 @@ import static com.github.aman10choudhary.partnerservice.utilities.ApplicationCon
 public class ExceptionMapper {
 
     @ExceptionHandler({ConstraintViolationException.class})
-    public ResponseEntity<?> handleException(ConstraintViolationException exception, WebRequest request, HttpServletResponse response){
+    public ResponseEntity<?> handleException(ConstraintViolationException exception){
         Set<ConstraintViolation<?>> constraintViolations = exception.getConstraintViolations();
         return createResponseEntity(constraintViolations);
     }
 
     public ResponseEntity createResponseEntity(Set<ConstraintViolation<?>> constraintViolations){
-        Method method = null;
         ErrorResponse error = new ErrorResponse();
         for(ConstraintViolation constraintViolation : constraintViolations){
-            method = Optional.ofNullable(method).orElse(getMethod(constraintViolation));
             error.setCode(HttpStatus.BAD_REQUEST.value());
             error.setMessage(constraintViolation.getMessage().trim());
         }
         return ResponseEntity.badRequest().body(error);
-    }
-
-    public static Method getMethod(ConstraintViolation constraintViolation) {
-        for(Method _method : constraintViolation.getLeafBean().getClass().getDeclaredMethods()){
-            if(_method.getName().equalsIgnoreCase(((PathImpl)constraintViolation.getPropertyPath()).getLeafNode().getParent().getName())){
-                return _method;
-            }
-        }
-        return null;
     }
 
     @ExceptionHandler({MethodArgumentNotValidException.class})

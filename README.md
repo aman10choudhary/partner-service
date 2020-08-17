@@ -30,4 +30,4 @@ Alternatively you can use the [Spring Boot Maven plugin](https://docs.spring.io/
 ```shell
 mvn spring-boot:run
 ```
-Once the local server has started, you can haed over to http://localhost:8080/swagger-ui.html to try and test the API specifications
+Once the local server has started, you can go to http://localhost:8080/swagger-ui.html to try and test the API specifications

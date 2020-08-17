@@ -70,13 +70,6 @@ public class PartnerControllerTest {
     }
 
     @Test
-    public void getPartnersEmptyPageTest() throws Exception {
-        String path = basePath + "?from=2&size=4";
-        MockHttpServletResponse response = performRequest(path);
-        assertEquals(400, response.getStatus());
-    }
-
-    @Test
     public void getPartnersInvalidParameterTest() throws Exception {
         String path = basePath + "?from=2&size=5";
         MockHttpServletResponse response = performRequest(path);
